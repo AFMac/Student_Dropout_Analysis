@@ -23,13 +23,13 @@ The dataset enables the training of a classification model using various datapoi
   - `train.py`
     - Python script to train the final model and export to a binary file via `pickle`
   - `predict.py`
-    - Python script to load the exported model and serve it via a `Flask` webservice
+    - Python script to load the exported model and serve it (locally or via Docker container) via a `Flask` webservice
   - Containerized Execution
     - `Dockerfile_student_dropouts`, `requirements.txt`, `xgboost_model.bin` - Various elements (including exported model) to support execution via Docker container
   - Cloud Deployment
     - This project is currently hosted via [PythonAnywhere](https://www.pythonanywhere.com) and you can test it live.
     - `predict-test.py` can be run via your preferred Python environment.  The script sends a sample data request for a single student to the webapp and receives a response of the raw probability of their dropping out, and the accompanying prediction as 'True' or 'False' (based on a threshold of `p(dropout) >= 0.5`).
-    - `predict.py` is included if you're interested in the code for the webapp itself.
+    - `predict_asdeployed.py` is included if you're interested in the code used to deploy the webapp (slightly different from `predict.py` due to constraints with PythonAnywhere).
    
 # This is *boring*, I just want to see what this does.
 
@@ -37,15 +37,17 @@ No problem, all you'll need is the `predict-test.py` file included in this repos
 > `{'dropout_decision': True, 'dropout_probability': 0.6174503244940356}`
 >
 > `Process finished with exit code 0`
-The webapp is live on the PythonAnywhere platform, so nothing else special is required.
 
-- What exactly is going on?
-  - As you can see from looking at the straightforward `predict-test.py` script, when you execute it, you send data for a single student to a web service.  The individual data elements correspond to the socio-economic, demographic, and academic features mentioned above, and each has varying degrees of influence on the prediction, based on the model that has been trained on the data.  That trained model is used by the web app to generate a prediction based on the data you provide.  As mentioned, you can change the predicted outcome by modifying values in the data (the dictionary `student`) and re-running the script.  To execute:
+To run the file:
     1. Download the file
     2. From that directory, run the file and provide '1' as an argument, as shown below
     ```python
     python predict_test.py 1 #passing the argument 1 will select the PythonAnywhere-hosted solution to send the data to.
     ```
+The webapp is live on the PythonAnywhere platform, so nothing else special is required.
+
+- What exactly is going on?
+  - As you can see from looking at the straightforward `predict-test.py` script, when you execute it, you send data for a single student to a web service.  The individual data elements correspond to the socio-economic, demographic, and academic features mentioned above, and each has varying degrees of influence on the prediction, based on the model that has been trained on the data.  That trained model is used by the web app to generate a prediction based on the data you provide.  As mentioned, you can change the predicted outcome by modifying values in the data (the dictionary `student`) and re-running the script.  
     - Hint: if you'd like to see significant shifts, change the values for `sem2_unit_approved` and `sem2_grades`, as these features have a great deal of influence on model outcomes.  Feel free to experiment and change any other values as well.
     - The response you get is the calculated prediction of whether the student will drop out (`dropout_decision`) and the raw predicted probability (`dropout_probability`).
     - **Note**: this is a simplistic application with no error handling.  Be sure to maintain proper syntax (i.e. the dictionary must remain a dictionary, and values should be in the form of floats).
@@ -67,8 +69,8 @@ The webapp is live on the PythonAnywhere platform, so nothing else special is re
   - Linear regression
   - Decision Tree
   - Random Forest
-  - XGBoost Classifier
-- The linear regression and XGBoost models performed the best of the bunch, and were actually very comparable.  Ultimately, the XGBoost as the "best" and was selected for containerization and deployment.  However, due to limitations of the selected hosting platform, the linear regression model was ultimately utilized.
+  - Gradient Boost Classifier
+- The linear regression and Gradient Boost models performed the best of the bunch, and were actually very comparable.  Ultimately, Gradient Boost was determined to be the "best" and was selected for containerization and deployment.  However, due to limitations of the selected hosting platform, the linear regression model was ultimately utilized.
 - Model training and tuning is contained in the `notebook.ipynb` file following exploratory data analysis.  Finalized models and some accompanying evaluation metrics and visualizations are captured in the `addtl_testing.ipynb` notebook.
 
 # How to Install and Run
