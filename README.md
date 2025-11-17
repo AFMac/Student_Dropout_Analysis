@@ -39,11 +39,11 @@ No problem, all you'll need is the `predict-test.py` file included in this repos
 > `Process finished with exit code 0`
 
 To run the file:
-    1. Download the file
-    2. From that directory, run the file and provide '1' as an argument, as shown below
-    ```python
-    python predict_test.py 1 #passing the argument 1 will select the PythonAnywhere-hosted solution to send the data to.
-    ```
+1. Download the file
+2. From that directory, run the file and provide '1' as an argument, as shown below
+```python
+python predict_test.py 1 #passing the argument 1 will select the PythonAnywhere-hosted solution to send the data to.
+```
 The webapp is live on the PythonAnywhere platform, so nothing else special is required.
 
 - What exactly is going on?
@@ -71,7 +71,7 @@ The webapp is live on the PythonAnywhere platform, so nothing else special is re
   - Random Forest
   - Gradient Boost Classifier
 - The linear regression and Gradient Boost models performed the best of the bunch, and were actually very comparable.  Ultimately, Gradient Boost was determined to be the "best" and was selected for containerization and deployment.  However, due to limitations of the selected hosting platform, the linear regression model was ultimately utilized.
-- Model training and tuning is contained in the `notebook.ipynb` file following exploratory data analysis.  Finalized models and some accompanying evaluation metrics and visualizations are captured in the `addtl_testing.ipynb` notebook.
+- Model training and tuning is contained in the `notebook.ipynb` file following exploratory data analysis.  Finalized models and some accompanying evaluation metrics and visualizations are captured in the `finalized_models.ipynb` notebook.
 
 # How to Install and Run
 ## Option 1: Local installation  (prerequisite: Python 3.13+)
